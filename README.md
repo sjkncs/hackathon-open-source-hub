@@ -52,7 +52,7 @@
 | [nano-banana-hackathon-kit](https://github.com/sjkncs/nano-banana-hackathon-kit) | google-gemini/nano-banana-hackathon-kit | 1,028 | 2025-09-08 | Apache-2.0 | Nano Banana Hackathon 官方 starter kit |
 | [laravel-hackathon-starter](https://github.com/sjkncs/laravel-hackathon-starter) | unicodeveloper/laravel-hackathon-starter | 1,685 | 2023-12-14 | MIT | Laravel 版 MVP 脚手架（**已停更**） |
 | [mlh-hackathon-nodejs-starter](https://github.com/sjkncs/mlh-hackathon-nodejs-starter) | MLH/mlh-hackathon-nodejs-starter | 702 | 2022-02-11 | MIT | MLH 官方 Node 脚手架（已停更） |
-| [django-hackathon-starter](https://github.com/sjkncs/django-hackathon-starter) | DrkSephy/django-hackathon-starter | 1,623 | 2020-03-05 | **未声明许可** | Django 版脚手架（已停更 6 年）——**无 LICENSE，慎用**，见第十节 |
+| [django-hackathon-starter](https://github.com/sjkncs/django-hackathon-starter) | DrkSephy/django-hackathon-starter | 1,623 | 2020-03-05 | **未声明许可** | Django 版脚手架（已停更 6 年）——**无 LICENSE，慎用**，见第九节 9.4 |
 | [RAG_Hack](https://github.com/sjkncs/RAG_Hack) | microsoft/RAG_Hack | 523 | 2024-10-11 | MIT | 微软 Hack Together: RAG Hack 官方仓库 |
 
 ---
@@ -136,6 +136,8 @@
 
 **本索引覆盖的 fork 已全部落地**（A 类 7 + B 类 1 + C 类 4 + C-2 类 5 + C-3 类 5 + 平台 4 = 26 个）。fork 创建过程中曾两次撞上 GitHub 的**内容创建二级限速**（与 5,000 次/小时的 API 配额无关，且**不返回 `Retry-After`**，只能等待冷却窗口），均已通过退避重试补齐。
 
+> **范围说明**：本节与第三～七节只索引**与黑客松／赛事相关的 26 个 fork**。账号内其余 fork（agent / RAG / 量化 / 课程资料等）不属本索引范围，但其**许可风险已在第九节全量审计**——审计覆盖账号内**全部 106 个 fork**（该数字在审计当时为 106，账号 fork 数仍在增长）。
+
 ### fork 新鲜度实测（2026-10-06 复检，直接 SHA 比对）
 
 | fork | 状态 |
@@ -153,7 +155,79 @@
 
 ---
 
-## 九、配套赛事入口（截至 2026-10-06 实测）
+## 九、全量许可风险审计（覆盖账号内全部 106 个 fork）
+
+**审计方法**：逐个读取仓库的**许可证正文字段**（`Accept: application/vnd.github.raw`），而非依赖 GitHub 的自动识别标签——因为本审计已证明**标签会错**（见下）。审计快照：2026-10-06，覆盖 106 个 fork。
+
+**标签分布**：MIT 36 / Apache-2.0 27 / **无标签 22** / **NOASSERTION 12** / GPL-3.0 5 / AGPL-3.0 3 / BSD-3-Clause 1
+
+### 9.1 最高风险：fork 了专有代码，不是开源项目
+
+| fork | 上游 | 性质 |
+|---|---|---|
+| [code_false](https://github.com/sjkncs/code_false) | anthropics/claude-code（149,612★） | **专有软件** |
+| [code-yuan](https://github.com/sjkncs/code-yuan) | obq/claude-code | 来源为**第三方 fork**，非 Anthropic 官方，**含 `claude code main` 目录** |
+| [code_real](https://github.com/sjkncs/code_real) | T-Lab-CUHKSZ/claude-code | 来源为**第三方 fork**，含 `src/`、`package.json`、`tsconfig.json`（疑似反编译/重构产物） |
+
+`code_false/LICENSE.md` **全文仅 150 字节**，只有一句：
+
+> © Anthropic PBC. **All rights reserved.** Use is subject to Anthropic's Commercial Terms of Service.
+
+**这不是开源许可，是版权保留声明。** `anthropics/claude-code` 的 GitHub 许可字段同样为 `<NONE>`——**公开可读的源码仓库 ≠ 授权使用**。三个 fork 都应当**立即删除**。
+
+### 9.2 商业使用受限（魔改 Apache-2.0，均带附加条件）
+
+| fork | 上游 | 限制 |
+|---|---|---|
+| [dify](https://github.com/sjkncs/dify) | langgenius/dify | ①**未经书面授权不得用于多租户（multi-tenant）环境**运营；②**前端不得移除或修改 LOGO 与版权信息**；③注明"本产品交互设计受外观专利保护" |
+| [multica](https://github.com/sjkncs/multica) | multica-ai/multica | ①**未经书面授权不得将源码用于向第三方提供托管服务（SaaS／managed service），或嵌入对外商业分销的产品**；单组织内部使用（含多工作区）不需要商业许可；②前端 LOGO 与版权不可删改 |
+| [computer-vision-in-action](https://github.com/sjkncs/computer-vision-in-action) | StevenJokess/computer-vision-in-action | **CC BY-NC-SA 4.0——明确禁止商业使用**，且要求相同方式共享 |
+| [daily-arXiv-ai-enhanced](https://github.com/sjkncs/daily-arXiv-ai-enhanced) | AmillyW/daily-arXiv-ai-enhanced | 正文标题为 **"Modified Apache License"**（魔改版），需人工逐条阅读 |
+| WeKnora / Weknora-dingding | Tencent/WeKnora 等 | Apache-2.0 正文 + **附加条款字样**，需人工确认 |
+
+> **对"拿去打比赛"的直接影响**：以上项目若作为**参赛交付物的组成部分**，通常落入"商业使用／对外服务"范畴——`dify` 的多租户条款、`multica` 的托管服务条款与 `computer-vision-in-action` 的 NC 条款都可能触发商业许可义务或直接禁止。
+
+### 9.3 Copyleft：改了就必须开源（8 个）
+
+| fork | 许可 |
+|---|---|
+| [firecrawl](https://github.com/sjkncs/firecrawl)、[rustdesk](https://github.com/sjkncs/rustdesk)、[Proma](https://github.com/sjkncs/Proma) | **AGPL-3.0** |
+| [ComfyUI](https://github.com/sjkncs/ComfyUI)、signature_algorithm、cjquant、TurboTCP、Moses | **GPL-3.0** |
+
+- **AGPL-3.0**：即使只通过网络提供服务，也**必须向使用者提供完整源码**（含你的修改）。对外 SaaS 场景务必注意。
+- **GPL-3.0**：分发衍生作品须以 GPL 开源。**若赛事要求提交闭源方案或需要独占知识产权，这类项目不可作为交付物基底。**
+
+### 9.4 无任何许可声明（22 个）
+
+按著作权默认规则为**保留全部权利**，不得复制、修改、分发。完整清单：
+
+`code_false`、`code-yuan`、`code_real`、`code-structure`、`3-claude-sorce`、`cc-study`、`octrix`、`kaoyan-matth1`、`408-computer-network-notes`、`408`、`geng-academic-fraud-detector`、`mulerun-pool`、`andrej-karpathy-skills`、`kmp-luckin-coffee-clone`、`littleTools`、`CnkiSpider`、`CS-Notes`、`sjtu-econ-mgt-courseware`、`Sz-poi`、`django-hackathon-starter`、`weapp-heytea`、`Community-Data`
+
+> 注意其中 `code-structure`、`3-claude-sorce`、`octrix`、`cc-study` 与 Claude Code 生态相关，请对照 9.1 一并处理。
+
+### 9.5 本审计发现的标签错误（证明"不能信 GitHub 标签"）
+
+| 仓库 | GitHub 标签 | **实际正文** | 说明 |
+|---|---|---|---|
+| rustdesk | AGPL-3.0 | **AGPL-3.0**（确认） | 文件名用**英式拼写 `LICENCE`**，用 `LICENSE*` 模式会漏，导致误判 |
+| dify | NOASSERTION | **魔改 Apache-2.0** | 标题为 "Open Source License"，含商业限制 |
+| multica | NOASSERTION | **魔改 Apache-2.0** | 同上 |
+| evals | NOASSERTION | **MIT** | 识别器失败 |
+| codalab-competitions | NOASSERTION | **Apache-2.0** | 正文仅 352 字节，指向 apache.org |
+| EvalAI | NOASSERTION | **BSD 3-Clause** | 识别器失败 |
+| UWM_Agent | NOASSERTION | **AGPL-3.0** | 识别器失败，但属 copyleft |
+| worldmonitor-1 | NOASSERTION | **AGPL-3.0** | 识别器失败，但属 copyleft |
+| WeKnora / Weknora-dingding / daily-arXiv-ai-enhanced | NOASSERTION | Apache-2.0 正文 + 附加条款 | 需人工阅读附加条款 |
+
+**方法论教训**：
+1. **`NOASSERTION` 不等于"自定义许可"，也不等于"无许可"**——它只说明自动识别失败，必须读正文定性。
+2. **`<NONE>` 才意味着没有任何许可文件**（或文件只有版权保留声明）。
+3. **找许可证文件要覆盖 `LICENCE`（英式）、`COPYING`、`LICENSE.TXT`、`LICENSE-APACHE` 等拼写与命名**，否则会漏判并产生假结论——本审计第一版脚本就因此把 `rustdesk` 误判为 MIT。
+4. **脚本异常必须逐条核对，不能沿用初始值**。本审计第二版脚本有 8 个仓库的 base64 解码抛异常，导致输出中残留初始值，产生过 `dify=Apache-2.0`、`evals=Apache-2.0` 等**与前一版自相矛盾**的假结论；改走 raw 媒体类型后才得到可信结果。
+
+---
+
+## 十、配套赛事入口（截至 2026-10-06 实测）
 
 | 赛事 | 报名入口 | 状态 | 硬截止 |
 |---|---|---|---|
@@ -165,7 +239,7 @@
 
 ---
 
-## 十、许可与致谢
+## 十一、许可与致谢
 
 本仓库为**索引仓库**，不复制上游代码。所有 fork 仓库均保留各自上游的 `LICENSE` 与版权声明：
 
