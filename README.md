@@ -224,6 +224,32 @@
 2. **`<NONE>` 才意味着没有任何许可文件**（或文件只有版权保留声明）。
 3. **找许可证文件要覆盖 `LICENCE`（英式）、`COPYING`、`LICENSE.TXT`、`LICENSE-APACHE` 等拼写与命名**，否则会漏判并产生假结论——本审计第一版脚本就因此把 `rustdesk` 误判为 MIT。
 4. **脚本异常必须逐条核对，不能沿用初始值**。本审计第二版脚本有 8 个仓库的 base64 解码抛异常，导致输出中残留初始值，产生过 `dify=Apache-2.0`、`evals=Apache-2.0` 等**与前一版自相矛盾**的假结论；改走 raw 媒体类型后才得到可信结果。
+5. **`gh repo list --json` 把整个 JSON 当作单个字符串返回**，直接对它取 `.Count` 得到的是字符串长度 1，不是元素个数。必须先赋值给变量再取 `.Count`，且**不要**用 `@(...)` 包装后取（在 Windows PowerShell 5.1 下同样会得到 1）——本审计的验证脚本就因此报出过 `fork count now: 1` 的假数字。
+
+### 9.6 新增 fork 前的检查清单（避免重复踩坑）
+
+1. `gh api repos/<owner>/<repo> --jq '.license.spdx_id'` —— **若为空则默认"保留全部权利"，不要 fork 后当开源用**。
+2. 看 `parent.full_name` —— 确认上游是否**官方账号**。本次三个 Claude Code fork 中有两个的上游是**个人账号**，非 Anthropic 官方。
+3. 若项目要用于**参赛交付物或对外服务**，额外确认三件事：是否有**多租户／托管服务限制**（如 `dify`、`multica`）、是否是 **AGPL/GPL**（会传染开源义务）、是否是 **CC BY-NC**（禁止商业使用）。
+4. 空仓库（`size=0`）与"只有 README"的仓库不构成有效 fork，注意甄别。
+
+### 9.7 处置建议与工具
+
+| 优先级 | 对象 | 建议 |
+|---|---|---|
+| **立即删除** | `code_false`、`code-yuan`、`code_real` | 专有代码（Anthropic "All rights reserved"）及来源不明的第三方 fork |
+| 建议删除 | `code-structure`、`3-claude-sorce`、`octrix`、`cc-study` | 同一生态且**无任何许可文件** |
+
+已提供**默认演练、须显式加 `-Execute` 才执行**的删除脚本，内置四道安全闸：账号校验、上游 parent 一致性校验、**检测到你自己有提交则拒绝删除**、**检测到有关联 PR 则拒绝删除**。
+
+```
+# 演练（不删任何东西）
+powershell -NoProfile -ExecutionPolicy Bypass -File remove_risky_forks.ps1
+# 真删
+powershell -NoProfile -ExecutionPolicy Bypass -File remove_risky_forks.ps1 -Execute
+```
+
+> 已核实：这 7 个仓库都是**纯 fork、零自有提交、零关联 PR**，删除不会丢失你自己的任何工作，也不会关闭任何 PR。但仍**建议先跑演练确认输出与预期一致**。
 
 ---
 
