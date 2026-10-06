@@ -50,6 +50,7 @@
 | [nano-banana-hackathon-kit](https://github.com/sjkncs/nano-banana-hackathon-kit) | google-gemini/nano-banana-hackathon-kit | 1,028 | 2025-09-08 | Apache-2.0 | Nano Banana Hackathon 官方 starter kit |
 | [laravel-hackathon-starter](https://github.com/sjkncs/laravel-hackathon-starter) | unicodeveloper/laravel-hackathon-starter | 1,685 | 2023-12-14 | MIT | Laravel 版 MVP 脚手架（**已停更**） |
 | [mlh-hackathon-nodejs-starter](https://github.com/sjkncs/mlh-hackathon-nodejs-starter) | MLH/mlh-hackathon-nodejs-starter | 702 | 2022-02-11 | MIT | MLH 官方 Node 脚手架（已停更） |
+| [django-hackathon-starter](https://github.com/sjkncs/django-hackathon-starter) | DrkSephy/django-hackathon-starter | 1,623 | 2020-03-05 | **未声明许可** | Django 版脚手架（已停更 6 年）——**无 LICENSE，慎用**，见第十节 |
 | [RAG_Hack](https://github.com/sjkncs/RAG_Hack) | microsoft/RAG_Hack | 523 | 2024-10-11 | MIT | 微软 Hack Together: RAG Hack 官方仓库 |
 
 ---
@@ -84,22 +85,54 @@
 
 ---
 
-## 六、待 fork 队列（受 GitHub 反滥用限速阻塞，冷却后补齐）
+## 六、C-2 类 · 评测框架与公开榜单（想自建 leaderboard 用这些）
 
-GitHub 对**短时间内大量 fork / 建仓**有独立的二级限速（与 5,000 次/小时的 API 配额无关，且**不返回 `Retry-After`**）。以下为排队中，冷却结束后执行：
+竞赛平台解决"收作品、排行、评测"，榜单框架解决"怎么评"。两类配合使用：
 
-| 目标上游 | 星数 | 许可 | 归入类别 |
-|---|---|---|---|
-| openai/mle-bench | 1,764 | 自定义 | C 类（把 Kaggle 竞赛包装成 agent 基准） |
-| modelscope/ms-agent | 4,407 | Apache-2.0 | C 类（魔搭自家 agent 框架） |
-| DIAGNijmegen/rse-grand-challenge | 193 | Apache-2.0 | C 类（医学影像挑战赛平台） |
-| SWE-bench/SWE-bench | 5,960 | MIT | C 类（代码修复基准 + 公开榜单） |
-| lm-sys/FastChat | 39,551 | Apache-2.0 | C 类（Chatbot Arena 开源发布仓） |
-| DrkSephy/django-hackathon-starter | 1,623 | MIT | A 类（Django 脚手架，已停更） |
+| 仓库（fork） | 上游 | 星数 | 最后推送 | 许可 | 定位 |
+|---|---|---|---|---|---|
+| [evals](https://github.com/sjkncs/evals) | openai/evals | **19,561** | 2026-04-14 | 自定义（见上游 LICENSE） | LLM 评测框架 + 开源基准注册表 |
+| [lm-evaluation-harness](https://github.com/sjkncs/lm-evaluation-harness) | EleutherAI/lm-evaluation-harness | **14,139** | 2026-09-14 | MIT | few-shot LLM 评测框架，**多个公开榜单的后端** |
+| [opencompass](https://github.com/sjkncs/opencompass) | open-compass/opencompass | 7,493 | 2026-09-28 | Apache-2.0 | 中文/多模型 LLM 评测平台，CompassHub 公开榜单 |
+| [evalscope](https://github.com/sjkncs/evalscope) | modelscope/evalscope | 3,504 | 2026-09-30 | Apache-2.0 | **魔搭自家评测框架**（LLM/VLM/AIGC 评测 + 性能压测） |
+| [lighteval](https://github.com/sjkncs/lighteval) | huggingface/lighteval | 2,552 | 2026-09-30 | MIT | HF 评测工具包，Open LLM Leaderboard 后端 |
+
+> **打魔搭系赛事的推荐组合**：`ms-swift`（微调）+ `evalscope`（评测）+ `ms-agent`（编排）——赛方自家工具链，兼容性风险最低。
 
 ---
 
-## 七、配套赛事入口（截至 2026-10-06 实测）
+## 七、C-3 类 · AI / LLM / Agent 类项目与赛事作品
+
+| 仓库（fork） | 上游 | 星数 | 最后推送 | 许可 | 定位 |
+|---|---|---|---|---|---|
+| [ChatDev](https://github.com/sjkncs/ChatDev) | OpenBMB/ChatDev | **34,454** | 2026-07-24 | Apache-2.0 | LLM 多智能体协作完成软件开发，黑客松常客 |
+| [lerobot](https://github.com/sjkncs/lerobot) | huggingface/lerobot | **27,964** | 2026-10-06 | Apache-2.0 | 端到端机器人学习，**LeRobot Worldwide / AMD DevMaster 黑客松的底座**（具身智能赛事首选） |
+| [SWE-agent](https://github.com/sjkncs/SWE-agent) | SWE-agent/SWE-agent | **20,496** | 2026-10-06 | MIT | 拿 GitHub issue 自动修复代码（NeurIPS 2024），官方描述含"competitive coding challenges" |
+| [ms-swift](https://github.com/sjkncs/ms-swift) | modelscope/ms-swift | **15,784** | 2026-10-05 | Apache-2.0 | 600+ LLM / 300+ MLLM 的 CPT/SFT/DPO/GRPO 微调框架 |
+| [unsloth](https://github.com/sjkncs/unsloth) | unslothai/unsloth | **77,271** | — | Apache-2.0 | 单卡微调加速，黑客松"48 小时把模型练出来"的刚需工具 |
+
+> 说明：`unsloth` 属**跨赛事的通用微调工具**，不以黑客松为主题，但它决定了你能不能在一个周末内把模型调出来，因此收录。
+
+**故意未收录的大体量通用仓库（可自行按需 fork，理由是体积而非质量问题）：**
+
+| 上游 | 星数 | 体积 | 未收录理由 |
+|---|---|---|---|
+| openai/openai-cookbook | 76,367 | **954 MB** | 教程集合，与黑客松无直接关系，且体量过大 |
+| huggingface/transformers | 167,000 | **515 MB** | 通用模型定义框架，不属于黑客松/赛事基建 |
+| vllm-project/vllm | 93,274 | **304 MB** | 推理引擎，属部署层，非赛事基建 |
+| microsoft/autogen | 61,273 | 145 MB | 通用多 agent 框架；许可为 **CC-BY-4.0**（非软件许可，商用需谨慎） |
+
+---
+
+## 八、fork 进度
+
+**本索引覆盖的 fork 已全部落地**（A 类 7 + B 类 1 + C 类 4 + C-2 类 5 + C-3 类 5 + 平台 4 = 26 个）。fork 创建过程中曾两次撞上 GitHub 的**内容创建二级限速**（与 5,000 次/小时的 API 配额无关，且**不返回 `Retry-After`**，只能等待冷却窗口），均已通过退避重试补齐。
+
+**维护提示**：fork 仓库的星数**不继承上游，恒显示 0**。本 README 各表记录的是**上游星数**，判断活跃度请直接看 fork 页面的提交时间或上游 `pushed_at`。
+
+---
+
+## 九、配套赛事入口（截至 2026-10-06 实测）
 
 | 赛事 | 报名入口 | 状态 | 硬截止 |
 |---|---|---|---|
@@ -111,14 +144,15 @@ GitHub 对**短时间内大量 fork / 建仓**有独立的二级限速（与 5,0
 
 ---
 
-## 八、许可与致谢
+## 十、许可与致谢
 
 本仓库为**索引仓库**，不复制上游代码。所有 fork 仓库均保留各自上游的 `LICENSE` 与版权声明：
 
-- MIT：hackathon-starter、awesome-hackathon-projects、RAG_Hack、laravel-hackathon-starter、mlh-hackathon-nodejs-starter
-- Apache-2.0：nano-banana-hackathon-kit、codabench
+- MIT：hackathon-starter、awesome-hackathon-projects、RAG_Hack、laravel-hackathon-starter、mlh-hackathon-nodejs-starter、SWE-bench、SWE-agent、lm-evaluation-harness、lighteval
+- Apache-2.0：nano-banana-hackathon-kit、codabench、ms-agent、rse-grand-challenge、FastChat、ChatDev、lerobot、ms-swift、evalscope、opencompass、unsloth
 - BSD-3-Clause：OpenML
-- 自定义许可（NOASSERTION，需逐项阅读上游 LICENSE）：EvalAI、codalab-competitions
+- **自定义许可（NOASSERTION，GitHub 无法识别，必须逐项阅读上游 LICENSE）**：EvalAI、codalab-competitions、mle-bench、evals
+- **⚠️ 未声明任何许可**：django-hackathon-starter。已实测其根目录**无 `LICENSE` 文件、README 亦无许可声明**。按著作权默认规则视为**保留全部权利**，与 MIT / Apache 完全不是一回事——**不要**当作可自由使用的代码。下表已按此更正。
 
 **使用 fork 前请自行确认上游许可证是否允许你的用途**（尤其是竞赛交付物与商业场景）。上游作者保留全部权利。
 
