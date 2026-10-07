@@ -52,7 +52,7 @@
 | [nano-banana-hackathon-kit](https://github.com/sjkncs/nano-banana-hackathon-kit) | google-gemini/nano-banana-hackathon-kit | 1,028 | 2025-09-08 | Apache-2.0 | Nano Banana Hackathon 官方 starter kit |
 | [laravel-hackathon-starter](https://github.com/sjkncs/laravel-hackathon-starter) | unicodeveloper/laravel-hackathon-starter | 1,685 | 2023-12-14 | MIT | Laravel 版 MVP 脚手架（**已停更**） |
 | [mlh-hackathon-nodejs-starter](https://github.com/sjkncs/mlh-hackathon-nodejs-starter) | MLH/mlh-hackathon-nodejs-starter | 702 | 2022-02-11 | MIT | MLH 官方 Node 脚手架（已停更） |
-| [django-hackathon-starter](https://github.com/sjkncs/django-hackathon-starter) | DrkSephy/django-hackathon-starter | 1,623 | 2020-03-05 | **未声明许可** | Django 版脚手架（已停更 6 年）——**无 LICENSE，慎用**，见第九节 9.4 |
+| [django-hackathon-starter](https://github.com/sjkncs/django-hackathon-starter) | DrkSephy/django-hackathon-starter | 1,623 | 2020-03-05 | **未声明许可** | Django 版脚手架（已停更 6 年）——**无 LICENSE，慎用**，见第十节 9.4 |
 | [RAG_Hack](https://github.com/sjkncs/RAG_Hack) | microsoft/RAG_Hack | 523 | 2024-10-11 | MIT | 微软 Hack Together: RAG Hack 官方仓库 |
 
 ---
@@ -132,11 +132,43 @@
 
 ---
 
-## 八、fork 进度
+## 八、D 类 · AI 工具类项目（2026-10-07 新增）
+
+这一组**不属于黑客松基建**，来源是 B 站开源项目推荐视频与用户点名的仓库，单独成节以免与第三～七节的分类混淆。
+
+| 仓库（fork） | 上游 | 星数 | 最后推送 | 许可 | 定位 |
+|---|---|---|---|---|---|
+| [editaplot](https://github.com/sjkncs/editaplot) | hang-jin/editaplot | 851 | 2026-10-07 | Apache-2.0 | **EditaPlot 艾迪图**：AI 驱动的可编辑科研绘图工作流，通过 Codex 直接调用本地 Origin/OriginPro，输出可编辑的 OPJU + PNG/PDF/TIF |
+| [SoulX-Podcast](https://github.com/sjkncs/SoulX-Podcast) | Soul-AILab/SoulX-Podcast | 3,585 | 2025-12-11 | Apache-2.0 | 长播客语音合成，支持方言与副语言多样性（四川话、河南话、粤语等），零样本音色克隆 |
+| [skills](https://github.com/sjkncs/skills) | scenario-labs/skills | 904 | 2026-10-06 | MIT | **Scenario Agent Skills**：65 个 Agent Skill，教 Claude Code / Cursor / Copilot 等产出图像、视频、3D 资产 |
+| [gaussian-splatting](https://github.com/sjkncs/gaussian-splatting) | graphdeco-inria/gaussian-splatting | 24,125 | 2025-10-17 | **⚠️ 仅研究许可** | 3D 高斯散射（3DGS）官方实现，实时辐射场渲染 —— **见下方警告** |
+
+### 8.1 ⚠️ `gaussian-splatting` 不是常规开源项目
+
+它的 GitHub 许可字段是 `NOASSERTION`（又是"标签不可信"的典型），**读取正文后确认为 INRIA / MPII 自制的限制性许可**，原文（LICENSE.md，4,662 字节）：
+
+> The *Software* may be used **"non-commercially"**, i.e., for **research and/or evaluation purposes only**.
+
+> THE USER **CANNOT USE, EXPLOIT OR DISTRIBUTE THE SOFTWARE FOR COMMERCIAL PURPOSES** WITHOUT PRIOR AND EXPLICIT CONSENT OF LICENSORS.
+
+两个必须注意的点：
+
+1. **传染性**。第 4.1 条要求衍生作品必须沿用同一许可；第 4.2 条要求你给衍生作品附加的条款**也必须保留第 2 节的用途限制**。也就是说，基于它做的任何东西都只能是非商业的。
+2. **与参赛用途冲突**。多数赛事的参赛交付物会被认定为商业用途或对外提供的服务，落在它的禁止范围内。**拿它做赛事交付基底前务必先确认赛事的知识产权条款。**
+
+> **fork ≠ 使用**：把仓库 fork 到自己的账号只是复制了一份代码，并不构成商业使用。风险发生在**你基于它产出并对外交付/提供服务**的时候。
+
+### 8.2 `skills` 星数的一处徽章错误
+
+该仓库 README 的徽章显示 `8.99k` stars，**实时值为 904** —— 差了整整一个数量级，应是徽章配置把 `904` 误算成了 `8.99k`。同类情况：`editaplot` 的徽章显示 `835`，实时值为 `851`（这个属正常增长）。**不要拿仓库自带徽章当数据源。**
+
+---
+
+## 九、fork 进度
 
 **本索引覆盖的 fork 已全部落地**（A 类 7 + B 类 1 + C 类 4 + C-2 类 5 + C-3 类 5 + 平台 4 = 26 个）。fork 创建过程中曾两次撞上 GitHub 的**内容创建二级限速**（与 5,000 次/小时的 API 配额无关，且**不返回 `Retry-After`**，只能等待冷却窗口），均已通过退避重试补齐。
 
-> **范围说明**：本节与第三～七节只索引**与黑客松／赛事相关的 26 个 fork**。账号内其余 fork（agent / RAG / 量化 / 课程资料等）不属本索引范围，但其**许可风险已在第九节全量审计**——审计覆盖账号内**全部 106 个 fork**（该数字在审计当时为 106，账号 fork 数仍在增长）。
+> **范围说明**：第三～八节是**索引条目**，共 30 条（黑客松基建 26 + D 类 AI 工具 4）。另为许可协作 fork 了 3 个 `TigerBruce` 的仓库（根目录原本无许可，已各提一个 MIT PR），**不计入索引**。账号内其余 fork（agent / RAG / 量化 / 课程资料等）不属本索引范围，但其**许可风险已在第十节全量审计**——审计覆盖账号内**全部 106 个 fork**（该数字在审计当时为 106；此后新增的 fork 尚未纳入该审计）。
 
 ### fork 新鲜度实测（2026-10-06 复检，直接 SHA 比对）
 
@@ -155,7 +187,19 @@
 
 ---
 
-## 九、全量许可风险审计（覆盖账号内全部 106 个 fork）
+## 十、全量许可风险审计（覆盖账号内全部 106 个 fork）
+
+> **审计时点说明**：本节审计快照为 **2026-10-06，覆盖当时账号内全部 106 个 fork**。审计完成后又新增了 8 个 fork，其许可状况已单独核实，结论如下（**不属于**本节 9.1–9.4 的统计范围，故 106 这个数字未作修改）：
+>
+> | 新增 fork | 上游 | 许可 | 风险 |
+> |---|---|---|---|
+> | editaplot | hang-jin/editaplot | Apache-2.0 | 无 |
+> | SoulX-Podcast | Soul-AILab/SoulX-Podcast | Apache-2.0 | 无 |
+> | skills | scenario-labs/skills | MIT | 无 |
+> | **gaussian-splatting** | graphdeco-inria/gaussian-splatting | **仅研究许可** | **禁止商业使用，且传染** —— 见 8.1 |
+> | lceda-operation-notes | TigerBruce/lceda-operation-notes | 上游无许可 | 已提 PR 补 MIT |
+> | Double_SPET_FOC | TigerBruce/Double_SPET_FOC | 上游根目录无许可 | 已提 PR 补 MIT |
+> | STM32CubeIDE-Workflow-Skill | TigerBruce/STM32CubeIDE-Workflow-Skill | 上游无许可 | 已提 PR 补 MIT |
 
 **审计方法**：逐个读取仓库的**许可证正文字段**（`Accept: application/vnd.github.raw`），而非依赖 GitHub 的自动识别标签——因为本审计已证明**标签会错**（见下）。审计快照：2026-10-06，覆盖 106 个 fork。
 
@@ -253,7 +297,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File remove_risky_forks.ps1 -Exec
 
 ---
 
-## 十、配套赛事入口（截至 2026-10-06 实测）
+## 十一、配套赛事入口（截至 2026-10-06 实测）
 
 | 赛事 | 报名入口 | 状态 | 硬截止 |
 |---|---|---|---|
@@ -265,7 +309,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File remove_risky_forks.ps1 -Exec
 
 ---
 
-## 十一、许可与致谢
+## 十二、许可与致谢
 
 本仓库为**索引仓库**，不复制上游代码。所有 fork 仓库均保留各自上游的 `LICENSE` 与版权声明：
 
